@@ -18,13 +18,19 @@ class Database:
 
     def __init__(self, name, credentials = None) -> None:
         # Database credentials
+        self.pg_user = "sql2circuits"
+        self.pg_pw = "privet834"
         self.name = name
-        self.port = "5432"
-        self.pg_db_name = "imdb2017"
-        self.pg_user = "postgres"
-        self.pg_pw = "0000"
-        self.file_path = "C://Users//valte//Documents//frozendata"
         self.host = "localhost"
+        self.port = "5432"
+        if self.name == "IMDB":
+            self.pg_db_name = "imdbload"
+        elif self.name == "F1Data":
+            self.pg_db_name = "ergastF1"        
+        #self.pg_user = "postgres"
+        #self.pg_pw = "0000"
+        self.file_path = "/home/farida/Documents/frozendata/"
+        
         self.created_data_files = dict()
         self.this_folder = os.path.abspath(os.getcwd())
 
@@ -83,7 +89,7 @@ class Database:
         shots_per_query = 10
         result = dict()
         cursor = None
-        file_name = self.this_folder + "//data_preparation//data//execution_time//" + str(id) + "_data.json"
+        file_name = self.this_folder + "/data_preparation/data/execution_time/" + str(id) + "_data.json"
         if os.path.isfile(file_name):
             if connection:
                 connection.close()

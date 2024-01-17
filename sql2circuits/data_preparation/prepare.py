@@ -3,7 +3,7 @@
 import os
 import json
 
-from training.utils import create_labeled_test_validation_classes, create_labeled_training_classes
+from training.utils import create_labeled_test_validation_classes, create_labeled_training_classes, create_labeled_training_classes_kmeans
 
 this_folder = os.path.abspath(os.getcwd())
 
@@ -25,16 +25,17 @@ class DataPreparation:
         print(workload_type)
         
         self.data_file = self.database.generate_data(id, queries, workload_type)
-        #print("Data file is ", self.data_file)
+        print("Data file is ", self.data_file)
         self.data = dict()
         with open(self.data_file) as json_file:
             self.data = json.load(json_file)
-
+       
         self.training_data = self.data["training"]
         self.test_data = self.data["test"]
         self.validation_data = self.data["validation"]
 
-        self.training_data_labels, self.classes = create_labeled_training_classes(self.training_data, classification, workload_type)
+
+        self.training_data_labels, self.classes = create_labeled_training_classes_kmeans(self.training_data, classification, workload_type)
         self.validation_data_labels = create_labeled_test_validation_classes(self.validation_data, self.classes, workload_type)
         self.test_data_labels = create_labeled_test_validation_classes(self.test_data, self.classes, workload_type)
 

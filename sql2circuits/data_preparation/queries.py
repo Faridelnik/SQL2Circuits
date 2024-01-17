@@ -12,7 +12,7 @@ class QueryGenerator:
     The generated queries are used for training, testing, and validation of SQL2Circuits model.
     """
 
-    def __init__(self, id, workload_type, database = "IMDB", query_seed_file_path = "", total_number_of_queries = 100, test_query_ratio = 0.2, validation_query_ratio = 0.2) -> None:
+    def __init__(self, id, workload_type, database = "IMDB", query_seed_file_path = "", total_number_of_queries = 50, test_query_ratio = 0.2, validation_query_ratio = 0.2) -> None:
         self.id = id
         self.database = database
         self.workload_type = workload_type
@@ -20,10 +20,10 @@ class QueryGenerator:
         self.test_query_ratio = test_query_ratio
         self.validation_query_ratio = validation_query_ratio
         self.this_folder = os.path.abspath(os.getcwd())
-        query_seed_file = open(self.this_folder + "//" + query_seed_file_path, "r")
+        query_seed_file = open(self.this_folder + "/" + query_seed_file_path, "r")
         self.query_seed = json.load(query_seed_file)
         self.queries = None
-        self.path_for_queries = self.this_folder + "//data_preparation//queries//" + self.workload_type + "//"
+        self.path_for_queries = self.this_folder + "/data_preparation/queries/" + self.workload_type + "/"
         self.query_file = self.path_for_queries + str(self.id) + ".json"
         
         if not os.path.exists(self.path_for_queries):

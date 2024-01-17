@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import pickle
 import math
 import sys
+import sklearn
+from sklearn.cluster import KMeans
+import numpy
 
 try:
     from jax import numpy as np
@@ -210,6 +213,50 @@ def create_labeled_training_classes(data, classification, workload):
     #print("Number of classes: ", len(classes))
     #print("Number of labeled data: ", len(labeled_data))
     #print("Data: ", labeled_data)
+    return labeled_data, classes
+
+# works only for execution time
+def create_labeled_training_classes_kmeans(data, classification, workload):
+    labeled_data = {}
+    classes = []
+
+    if workload == "execution_time" or workload == "E":
+        if type(data) != list:
+            data = [{"id": k, "time": v} for k, v in data.items()]
+        all_execution_times = []
+        for td in data:
+            all_execution_times.append(td["time"])
+            
+    # Convert a 1D array into a NumPy array with shape (-1, 1)
+    X = np.array(all_execution_times).reshape(-1, 1)
+    # Create a KMeans model with 2 clusters
+    kmeans = KMeans(n_clusters=2**classification, random_state=0)
+    # Fit the model to the data
+    kmeans.fit(X)
+    # Get the cluster assignments for each data point
+    cluster_labels = kmeans.labels_
+ 
+    # Sort cluster centers based on the first dimension
+    cluster_centers = kmeans.cluster_centers_
+    sorted_centers = cluster_centers[np.argsort(cluster_centers[:, 0])]
+
+    # Calculate midpoints between consecutive cluster centers
+    cluster_boundaries = (sorted_centers[:-1, 0] + sorted_centers[1:, 0]) / 2
+    classes.append((0, cluster_boundaries[0]))
+    # Iterate through the boundaries to create pairs
+    for i in range(len(cluster_boundaries) - 1):
+        classes.append((cluster_boundaries[i], cluster_boundaries[i + 1]))
+
+    # Adding the last class, which goes up to positive infinity
+    classes.append((cluster_boundaries[-1], float('inf')))
+
+    for i, clas in enumerate(data):
+        labeled_data[clas["id"]] = np.eye(2**classification)[cluster_labels[i]]
+
+    # print("Classes: ", classes)
+    # print("Number of classes: ", len(classes))
+    # print("Number of labeled data: ", len(labeled_data))
+    # print("Data: ", labeled_data)
     return labeled_data, classes
 
 

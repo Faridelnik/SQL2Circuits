@@ -25,6 +25,7 @@ numpy.random.seed(SEED)
 class SQL2Circuits():
 
     def __init__(self, 
+                 database,
                  run_id, 
                  classification,
                  circuit_architecture,
@@ -40,6 +41,7 @@ class SQL2Circuits():
                  learning_rate = None):
 
         print("The selected configuration is: ")
+        print("Chosen database: ", database)
         print("Run id: ", run_id)
         print("Seed file: ", seed_file)
         print("Quantum circuit framework: ", qc_framework)
@@ -53,7 +55,8 @@ class SQL2Circuits():
         print("Epochs: ", epochs)
         print("Learning rate: ", learning_rate)
         print("Circuit architecture: ", circuit_architecture)
-
+        
+        self.database = database
         self.run_id = run_id
         self.classification = classification
         self.seed_file = seed_file
@@ -72,8 +75,8 @@ class SQL2Circuits():
         self.c = 0.00185
         self.circuit_architecture = circuit_architecture
         
-        database = Database("IMDB")
-        generator = QueryGenerator(self.run_id, workload_type = self.workload_type, database = "IMDB", query_seed_file_path = self.seed_file)
+        database = Database(self.database)
+        generator = QueryGenerator(self.run_id, workload_type = self.workload_type, database = self.database, query_seed_file_path = self.seed_file)
         query_file = generator.get_query_file()
         self.data_preparator = DataPreparation(run_id, query_file, database = database, workload_type = self.workload_type, classification = self.classification)
         self.total_number_of_circuits = len(self.data_preparator.get_training_data_labels())

@@ -5,7 +5,8 @@
       "data_preparation//query_seeds//JOB_query_seed_latency_cost_big.json",
       "data_preparation//query_seeds//JOB_query_seed_cardinality_big.json",
       "data_preparation//query_seeds//JOB_query_seed_cardinality_tiny.json",
-      "data_preparation//query_seeds//JOB_query_seed_latency_cost_tiny.json"
+      "data_preparation//query_seeds//JOB_query_seed_latency_cost_tiny.json",
+      "data_preparation//query_seeds//JOB_query_seed_cardinality_small_F1data.json"
     ],
     "workload_types": [
       "execution_time",
