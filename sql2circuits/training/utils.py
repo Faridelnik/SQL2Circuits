@@ -215,6 +215,21 @@ def create_labeled_training_classes(data, classification, workload):
     #print("Data: ", labeled_data)
     return labeled_data, classes
 
+def plot_label_histograms(histogram_data, cluster_labels):
+
+    labels = list(set(cluster_labels))
+
+    for i in labels:
+        data = [x for x, label in zip(histogram_data, cluster_labels) if label == i]
+        plt.hist(data, bins=10, alpha=0.5, label='Label ' + str(i))
+
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.title("Histograms for " +str(len(labels))+ " classes")
+    plt.legend()
+
+    plt.savefig('label_distribution.png')
+
 # works only for execution time
 def create_labeled_training_classes_kmeans(data, classification, workload):
     labeled_data = {}
@@ -253,7 +268,9 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
     for i, clas in enumerate(data):
         labeled_data[clas["id"]] = np.eye(2**classification)[cluster_labels[i]]
 
-    # print("Classes: ", classes)
+    plot_label_histograms(all_execution_times, cluster_labels)
+
+    print("Classes: ", classes)
     # print("Number of classes: ", len(classes))
     # print("Number of labeled data: ", len(labeled_data))
     # print("Data: ", labeled_data)

@@ -17,10 +17,9 @@ cup_removal_functor2 = Functor(ob = lambda x: x, ar = lambda f: cup_remove_arrow
 n, s = Ty('n'), Ty('s')
 
 def create_CFG_diagrams(queries, generate_cfg_png_diagrams):
-    print(queries)
     output_dict = dict()
     for count, query in enumerate(queries):
-        print("Processing: ", count, " out of ", len(queries))
+        #print("Processing: ", count, " out of ", len(queries))
         id = query["id"]
         query = query["query"]
 
@@ -50,7 +49,7 @@ def create_CFG_diagrams(queries, generate_cfg_png_diagrams):
 def create_pregroup_grammar_diagrams(cfg_diagrams, generate_pregroup_png_diagrams):
     diagrams = dict()
     for count, key in enumerate(cfg_diagrams):
-        print("Process: ", count, " out of ", len(cfg_diagrams))
+        #print("Process: ", count, " out of ", len(cfg_diagrams))
 
         diagram = loads(json.dumps(cfg_diagrams[key]))
         num_of_result_columns = count_boxes(diagram, "result-column")
@@ -75,7 +74,8 @@ def create_pregroup_grammar_diagrams(cfg_diagrams, generate_pregroup_png_diagram
 def remove_cups_and_simplify(pregroup_diagrams, generate_pregroup_png_diagrams):
     diagrams = dict()
     for count, key in enumerate(pregroup_diagrams):
-        print("Process: ", count, " out of ", len(pregroup_diagrams))
+        if count % 10 == 0:
+            print("Removing cups: ", count, " out of ", len(pregroup_diagrams))
         pregroup_diagram = loads(json.dumps(pregroup_diagrams[key]))
     
         cupless_pregroup_diagram = cup_removal_functor(pregroup_diagram.normal_form()).normal_form() # type: ignore
@@ -127,7 +127,8 @@ def create_circuit_ansatz(pregroup_diagrams,
 
 
     for count, key in enumerate(pregroup_diagrams):
-        print("Process: ", count, " out of ", len(pregroup_diagrams))
+        if count % 10 == 0:
+            print("Generating circuits: ", count, " out of ", len(pregroup_diagrams))
         cupless_pregroup_diagram = loads(json.dumps(pregroup_diagrams[key]))
         circuit_diagram = ansatz(cupless_pregroup_diagram) # type: ignore
         circuit_diagrams[key] = circuit_diagram

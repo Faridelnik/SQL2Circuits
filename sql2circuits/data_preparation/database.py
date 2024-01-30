@@ -7,6 +7,7 @@ try:
 except ModuleNotFoundError:
     print("psycopg2 not found. Please install it with 'pip install psycopg2' and try again.")
 import os
+from psycopg2 import sql
 
 class Database:
     """
@@ -295,3 +296,128 @@ class Database:
         except (Exception, psycopg2.Error) as error:
             print("Error while fetching data from PostgreSQL", error)
             print(query)
+
+    def get_tables_names(self):
+        connection = None
+        table_names = []
+        table_alias_mapping = {}
+        try:
+            connection = psycopg2.connect(user=self.pg_user, 
+                                        password=self.pg_pw, 
+                                        host=self.host, 
+                                        port=self.port, 
+                                        database=self.pg_db_name)
+            cursor = connection.cursor()
+
+            # Get the names of all tables in the public schema
+            query = sql.SQL("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+            cursor.execute(query)
+
+            # Fetch all table names
+            table_names = cursor.fetchall()
+            i = 0
+            for table in table_names:
+                alias = chr(ord('a') + i) + str(i + 1)
+                i = i + 1
+                table_name = table[0]
+                table_alias_mapping[table_name] = alias
+
+        except (Exception, psycopg2.Error) as error:
+            print("Error while fetching data from PostgreSQL", error)
+
+        finally:
+            # Close the cursor and connection
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+        return table_alias_mapping
+    
+    def get_all_columns_from_all_tables(self):
+
+        connection = None
+        table_columns = {}
+        try:
+            connection = psycopg2.connect(user=self.pg_user, 
+                                        password=self.pg_pw, 
+                                        host=self.host, 
+                                        port=self.port, 
+                                        database=self.pg_db_name)
+            cursor = connection.cursor()
+
+            # Get the names of all tables in the public schema
+            query = sql.SQL("SELECT table_name, column_name FROM information_schema.columns WHERE table_schema = 'public'")
+            cursor.execute(query)
+
+            # Fetch all table names
+            tables = cursor.fetchall()
+            
+             # Populate the dictionary
+            for row in tables:
+                table_name, column_name = row
+                if table_name not in table_columns:
+                    table_columns[table_name] = []
+                table_columns[table_name].append(column_name)
+
+        except (Exception, psycopg2.Error) as error:
+            print("Error while fetching data from PostgreSQL", error)
+
+        finally:
+            # Close the cursor and connection
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+        return table_columns
+    
+    def get_tables_with_same_columns(self):
+
+        connection = None
+        columns = {}
+        try:
+            connection = psycopg2.connect(user=self.pg_user, 
+                                        password=self.pg_pw, 
+                                        host=self.host, 
+                                        port=self.port, 
+                                        database=self.pg_db_name)
+            cursor = connection.cursor()
+
+            # SQL query to retrieve columns and tables
+            query = """
+                SELECT column_name, array_agg(table_name) AS tables_with_column
+                FROM information_schema.columns
+                WHERE table_schema = 'public'
+                GROUP BY column_name
+                HAVING COUNT(DISTINCT table_name) > 1;
+            """
+
+            # Execute the query
+            cursor.execute(query)
+
+            # Fetch all the results
+            results = cursor.fetchall()
+
+            # Print the results
+            for row in results:
+                column_name, tables_with_column = row
+                if column_name != "time":
+                    columns[column_name] = tables_with_column
+
+        except (Exception, psycopg2.Error) as error:
+            print("Error while fetching data from PostgreSQL", error)
+
+        finally:
+            # Close the cursor and connection
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+        return columns
+
+
+
+
+

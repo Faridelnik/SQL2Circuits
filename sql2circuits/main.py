@@ -21,7 +21,7 @@ learning_rate = 0.07
 database = ["IMDB", "F1Data"]
 
 model = SQL2Circuits(database = database[1],
-                     run_id = 2,
+                     run_id = 3,
                      classification = 1,
                      circuit_architecture = circuit_architecture,
                      seed_file = seed_file, 
@@ -29,8 +29,9 @@ model = SQL2Circuits(database = database[1],
                      classical_optimizer = classical_optimizer, 
                      measurement = measurement, 
                      workload_type = workload_type, 
-                     initial_number_of_circuits = 20, 
-                     number_of_circuits_to_add = 10,
+                     total_number_of_queries = 50,
+                     initial_number_of_circuits = 30, 
+                     number_of_circuits_to_add = 20,
                      iterative = True,
                      epochs = 20,
                      learning_rate=learning_rate)

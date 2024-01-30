@@ -7,13 +7,18 @@ from training.functions.lambeq_functions import make_lambeq_cost_fn, make_lambeq
 from training.functions.pennylane_functions import make_pennylane_cost_fn, make_pennylane_pred_fn, make_pennylane_pred_fn_for_gradient_descent
 from training.utils import multi_class_acc, multi_class_loss, store_and_log
 this_folder = os.path.abspath(os.getcwd())
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+import matplotlib as plt
+import numpy as np
 
 
 class Evaluation:
 
-    def __init__(self, run_id, identifier, result_params, test_circuits, test_labels, test_params = None) -> None:
+    def __init__(self, run_id, identifier, classification, result_params, test_circuits, test_labels, test_params = None) -> None:
         self.run_id = run_id
         self.identifier = identifier
+        self.classification = 2**classification
         self.result_params = result_params
         self.test_circuits = test_circuits
         self.test_labels = test_labels
@@ -60,3 +65,32 @@ class Evaluation:
             file = json.load(f)
             file["results"].append({ "step": iteration, "test_accuracy": test_acc, "number_of_test_circuits": len(self.test_circuits) })
             json.dump(file, open(test_result_file, "w"), indent=4)
+
+        test_data_predictions = test_pred_fn(self.result_params)
+        print("test data predictions ", test_data_predictions)
+        print("actual labels ", self.test_labels)
+
+        actual_test_labels = np.zeros(len(test_data_predictions))
+        predicted_test_labels = np.zeros(len(test_data_predictions))
+
+        for data in self.test_labels:
+            for i in range(self.classification):
+                if data[i]==1:
+                    actual_test_labels[j] = i
+
+        for i in range(len(test_data_predictions)):
+            max_index = np.argmax(test_data_predictions[i])
+            predicted_test_labels[i] = max_index
+
+        # Calculate the confusion matrix (normalized)
+        cm = confusion_matrix(actual_test_labels, predicted_test_labels, normalize='true', labels=range(self.classification))
+
+        # Create a colorful heatmap plot
+        fig = plt.figure(figsize=(8, 6))
+        label_list = ['Label {}'.format(i) for i in range(self.classification)]
+        sns.heatmap(cm, annot=True, cmap="RdPu", fmt=".2f", xticklabels=label_list, yticklabels=label_list)
+        plt.xlabel('Predicted')
+        plt.ylabel('True')
+        plt.title('Normalized Confusion Matrix SQL2Circuits Optax')
+        
+        fig.savefig('confusion_matrix.png', dpi=fig.dpi)

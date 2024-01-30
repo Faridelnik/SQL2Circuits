@@ -7,6 +7,7 @@ from circuit_preparation.circuits import Circuits
 from data_preparation.database import Database
 from data_preparation.prepare import DataPreparation
 from data_preparation.queries import QueryGenerator
+from data_preparation.sqlGenerator import SQLGenerator
 from evaluation.evaluation import Evaluation
 from training.trainers.lambeq_optax import LambeqTrainerJAX
 from training.data_preparation_manager import DataPreparationManager
@@ -34,6 +35,7 @@ class SQL2Circuits():
                  classical_optimizer, 
                  measurement, 
                  workload_type, 
+                 total_number_of_queries,
                  initial_number_of_circuits, 
                  number_of_circuits_to_add, 
                  iterative,
@@ -51,7 +53,7 @@ class SQL2Circuits():
         print("Initial number of circuits: ", initial_number_of_circuits)
         print("Number of circuits to add: ", number_of_circuits_to_add)
         print("Iterative: ", iterative)
-        print("Classification: ", 2**classification)
+        print("Classification: ", 2**classification, " classes")
         print("Epochs: ", epochs)
         print("Learning rate: ", learning_rate)
         print("Circuit architecture: ", circuit_architecture)
@@ -76,7 +78,8 @@ class SQL2Circuits():
         self.circuit_architecture = circuit_architecture
         
         database = Database(self.database)
-        generator = QueryGenerator(self.run_id, workload_type = self.workload_type, database = self.database, query_seed_file_path = self.seed_file)
+        #generator = QueryGenerator(self.run_id, workload_type = self.workload_type, database = self.database, query_seed_file_path = self.seed_file)
+        generator = SQLGenerator(self.run_id, workload_type = self.workload_type, database = database, total_number_of_queries = total_number_of_queries)
         query_file = generator.get_query_file()
         self.data_preparator = DataPreparation(run_id, query_file, database = database, workload_type = self.workload_type, classification = self.classification)
         self.total_number_of_circuits = len(self.data_preparator.get_training_data_labels())
@@ -93,7 +96,7 @@ class SQL2Circuits():
 
         info = {
             "run_id": self.run_id,
-            "seed_file": self.seed_file,
+            #"seed_file": self.seed_file,
             "qc_framework": self.qc_framework,
             "classical_optimizer": self.classical_optimizer,
             "measurement": self.measurement,
@@ -225,7 +228,7 @@ class SQL2Circuits():
                                           self.epochs, 
                                           self.classification)
             self.result = trainer.train(X_train, y, validation_circuits = validation_circuits, validation_labels = validation_labels)
-            evaluator = Evaluation(self.run_id, self.identifier, self.result, test_circuits, test_labels)
+            evaluator = Evaluation(self.run_id, self.identifier, self.classification, self.result, test_circuits, test_labels)
             evaluator.evaluate_pennylane_optax_on_test_set(number_of_circuits)
         elif self.qc_framework == "lambeq":
             params = sf.get_lambeq_symbols()
@@ -236,10 +239,12 @@ class SQL2Circuits():
                                        self.epochs, 
                                        self.classification)
             self.result = trainer.train(X_train, y, validation_circuits = validation_circuits, validation_labels = validation_labels)
-            evaluator = Evaluation(self.run_id, self.identifier, self.result, test_circuits, test_labels, params)
+            evaluator = Evaluation(self.run_id, self.identifier, self.classification, self.result, test_circuits, test_labels, params)
             evaluator.evaluate_lambeq_on_test_set(number_of_circuits)
         with open(self.results_folder + str(number_of_circuits) + "_optax_results_.pkl", "wb") as f:
             pickle.dump(self.result, f)
+
+        print("Training results: ",  self.result)
         
         return self.result
 
@@ -251,3 +256,5 @@ class SQL2Circuits():
             if i > self.total_number_of_circuits:
                 i = self.total_number_of_circuits
             self.train_optax(i)
+
+        print("Iterative training finished")
