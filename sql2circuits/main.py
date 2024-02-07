@@ -11,7 +11,6 @@ except ModuleNotFoundError:
 
 this_folder = os.path.abspath(os.getcwd())
 configurations = json.load(open("sql2circuits_config.json", "r"))
-seed_file = configurations["seed_paths"][6] #2
 workload_type = configurations["workload_types"][0]
 qc_framework = configurations["qc_frameworks"][1]
 classical_optimizer = configurations["classical_optimizers"][4]
@@ -21,10 +20,9 @@ learning_rate = 0.07
 database = ["IMDB", "F1Data"]
 
 model = SQL2Circuits(database = database[1],
-                     run_id = 3,
+                     run_id = 1,
                      classification = 1,
                      circuit_architecture = circuit_architecture,
-                     seed_file = seed_file, 
                      qc_framework = qc_framework, 
                      classical_optimizer = classical_optimizer, 
                      measurement = measurement, 
