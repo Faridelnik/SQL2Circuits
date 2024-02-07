@@ -19,19 +19,16 @@ class Database:
 
     def __init__(self, name, credentials = None) -> None:
         # Database credentials
-        self.pg_user = "sql2circuits"
-        self.pg_pw = "privet834"
+        self.pg_user = "postgres"
+        self.pg_pw = "test_123"
         self.name = name
         self.host = "localhost"
         self.port = "5432"
         if self.name == "IMDB":
             self.pg_db_name = "imdbload"
         elif self.name == "F1Data":
-            self.pg_db_name = "ergastF1"        
-        #self.pg_user = "postgres"
-        #self.pg_pw = "0000"
-        self.file_path = "/home/farida/Documents/frozendata/"
-        
+            self.pg_db_name = "F1Data"        
+                
         self.created_data_files = dict()
         self.this_folder = os.path.abspath(os.getcwd())
 
