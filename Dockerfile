@@ -1,4 +1,3 @@
-# run from top level folder qc4db
 # build takes ~200s (on MBAm2 amd64 emulated) and ~70s (on MBAm2 arm64 native)
 # substitute PLATFORM with linux/arm64 or linux/amd64 and DOCKERFILE 
 # build with: docker buildx build --platform PLATFORM --progress=plain -t server -f docker/DOCKERFILE .
@@ -51,6 +50,13 @@ RUN wget "https://github.com/jtv/libpqxx/archive/refs/tags/7.7.5.tar.gz" -O libp
 WORKDIR /qc4db
 COPY dataBase ./dataBase
 
+WORKDIR /qc4db
+
+RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
+    jax==0.4.23 jaxlib==0.4.23 optax==0.1.7 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.23.5 PennyLane==0.32.0 \
+    psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2
+RUN pip install -U scikit-learn
+
 # init users and data bases for tests
 USER postgres
 RUN /etc/init.d/postgresql start \
@@ -63,13 +69,32 @@ RUN /etc/init.d/postgresql start \
     && psql -d F1Data -f /qc4db/dataBase/ergastF1/load.sql
 
 # create and populate IMDB database
-# USER root
+USER root
+RUN pip install imdbpy
+
+WORKDIR /qc4db/dat
+RUN wget https://datasets.imdbws.com/name.basics.tsv.gz && \
+    wget https://datasets.imdbws.com/title.akas.tsv.gz && \
+    wget https://datasets.imdbws.com/title.basics.tsv.gz && \
+    wget https://datasets.imdbws.com/title.crew.tsv.gz && \
+    wget https://datasets.imdbws.com/title.episode.tsv.gz && \
+    wget https://datasets.imdbws.com/title.principals.tsv.gz && \
+    wget https://datasets.imdbws.com/title.ratings.tsv.gz
+
+# Loading IMDB data into postgresql https://dbastreet.com/?p=1426
+WORKDIR /qc4db
+USER postgres
+RUN /etc/init.d/postgresql start \
+    && createdb imdbload 
+WORKDIR /qc4db/dataBase
+RUN /etc/init.d/postgresql start \
+    && python3 s32cinemagoer.py /qc4db/dat postgresql://postgres:test_123@localhost:5432/imdbload
+
+USER root
+
+
 # WORKDIR /qc4db/frozendata
 # RUN wget ftp://ftp.fu-berlin.de/misc/movies/database/frozendata/*gz
-
-# USER postgres
-# RUN /etc/init.d/postgresql start \
-#     && createdb imdbload
 
 # WORKDIR /qc4db
 # #RUN pip install cinemagoer
@@ -79,13 +104,9 @@ RUN /etc/init.d/postgresql start \
 # RUN /etc/init.d/postgresql start \
 #     && python3 imdbpy2sql.py -d /qc4db/frozendata -u postgresql://postgres:test_123@localhost:5432/imdbload || true
 
-# clone SQL2Circuits
-USER root
-WORKDIR /qc4db
 
-RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
-    jax==0.4.23 jaxlib==0.4.23 optax==0.1.7 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.23.5 PennyLane==0.32.0 \
-    psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2
-RUN pip install -U scikit-learn
+
+
+
 
 
