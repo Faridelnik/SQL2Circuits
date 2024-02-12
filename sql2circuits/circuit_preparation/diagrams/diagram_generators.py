@@ -73,9 +73,10 @@ def create_pregroup_grammar_diagrams(cfg_diagrams, generate_pregroup_png_diagram
 
 def remove_cups_and_simplify(pregroup_diagrams, generate_pregroup_png_diagrams):
     diagrams = dict()
+    print("Removing cups")
     for count, key in enumerate(pregroup_diagrams):
-        if count % 10 == 0:
-            print("Removing cups: ", count, " out of ", len(pregroup_diagrams))
+        # if count % 10 == 0:
+        #     print("Removing cups: ", count, " out of ", len(pregroup_diagrams))
         pregroup_diagram = loads(json.dumps(pregroup_diagrams[key]))
     
         cupless_pregroup_diagram = cup_removal_functor(pregroup_diagram.normal_form()).normal_form() # type: ignore
@@ -125,10 +126,10 @@ def create_circuit_ansatz(pregroup_diagrams,
                                 n_layers = layers, 
                                 n_single_qubit_params = single_qubit_params)
 
-
+    print("Generating circuits")
     for count, key in enumerate(pregroup_diagrams):
-        if count % 10 == 0:
-            print("Generating circuits: ", count, " out of ", len(pregroup_diagrams))
+        # if count % 10 == 0:
+        #     print("Generating circuits: ", count, " out of ", len(pregroup_diagrams))
         cupless_pregroup_diagram = loads(json.dumps(pregroup_diagrams[key]))
         circuit_diagram = ansatz(cupless_pregroup_diagram) # type: ignore
         circuit_diagrams[key] = circuit_diagram

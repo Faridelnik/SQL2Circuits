@@ -244,7 +244,7 @@ class SQL2Circuits():
         with open(self.results_folder + str(number_of_circuits) + "_optax_results_.pkl", "wb") as f:
             pickle.dump(self.result, f)
 
-        print("Training results: ",  self.result)
+        #print("Training results: ",  self.result)
         
         return self.result
 

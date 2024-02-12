@@ -9,7 +9,7 @@ from training.utils import multi_class_acc, multi_class_loss, store_and_log
 this_folder = os.path.abspath(os.getcwd())
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -67,16 +67,16 @@ class Evaluation:
             json.dump(file, open(test_result_file, "w"), indent=4)
 
         test_data_predictions = test_pred_fn(self.result_params)
-        print("test data predictions ", test_data_predictions)
-        print("actual labels ", self.test_labels)
 
         actual_test_labels = np.zeros(len(test_data_predictions))
         predicted_test_labels = np.zeros(len(test_data_predictions))
-
+        
+        j=0
         for data in self.test_labels:
             for i in range(self.classification):
                 if data[i]==1:
                     actual_test_labels[j] = i
+            j = j + 1
 
         for i in range(len(test_data_predictions)):
             max_index = np.argmax(test_data_predictions[i])
@@ -89,8 +89,10 @@ class Evaluation:
         fig = plt.figure(figsize=(8, 6))
         label_list = ['Label {}'.format(i) for i in range(self.classification)]
         sns.heatmap(cm, annot=True, cmap="RdPu", fmt=".2f", xticklabels=label_list, yticklabels=label_list)
+        #sns.heatmap(cm, annot=True, fmt=".2f", xticklabels=label_list, yticklabels=label_list)
         plt.xlabel('Predicted')
         plt.ylabel('True')
         plt.title('Normalized Confusion Matrix SQL2Circuits Optax')
+        fig_name = 'confusion_matrix_' + str(self.classification) + '_classes.png'
         
-        fig.savefig('confusion_matrix.png', dpi=fig.dpi)
+        fig.savefig(fig_name, dpi=fig.dpi)

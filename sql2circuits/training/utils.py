@@ -221,14 +221,15 @@ def plot_label_histograms(histogram_data, cluster_labels):
 
     for i in labels:
         data = [x for x, label in zip(histogram_data, cluster_labels) if label == i]
-        plt.hist(data, bins=10, alpha=0.5, label='Label ' + str(i))
+        print(i, len(data))
+        plt.hist(data, alpha=0.5, label='Label ' + str(i))
 
     plt.xlabel('Value')
     plt.ylabel('Frequency')
     plt.title("Histograms for " +str(len(labels))+ " classes")
     plt.legend()
 
-    plt.savefig('label_distribution.png')
+    plt.savefig('label_distribution_' + str(len(labels)) + '_classes.png')
 
 # works only for execution time
 def create_labeled_training_classes_kmeans(data, classification, workload):
