@@ -69,7 +69,7 @@ class SQL2Circuits():
         self.initial_number_of_circuits = initial_number_of_circuits
         self.number_of_circuits_to_add = number_of_circuits_to_add
         self.iterative = iterative
-        self.identifier = str(run_id) + "_" + qc_framework + "_" + classical_optimizer + "_" + measurement + "_" + circuit_architecture + "_" + workload_type + "_" + str(initial_number_of_circuits) + "_" + str(number_of_circuits_to_add) + "_" + str(learning_rate).replace(".", "") + "_" + str(2**classification)
+        self.identifier = str(run_id) + "_" + database + "_" + str(2**classification) + "_classes_" + qc_framework + "_" + classical_optimizer + "_" + measurement + "_" + circuit_architecture + "_" + workload_type + "_" + str(initial_number_of_circuits) + "_" + str(number_of_circuits_to_add) + "_" + str(learning_rate).replace(".", "")
         self.result = None
         self.epochs = epochs
         self.learning_rate = learning_rate
@@ -84,12 +84,12 @@ class SQL2Circuits():
         self.data_preparator = DataPreparation(run_id, query_file, database = database, workload_type = self.workload_type, classification = self.classification)
         self.total_number_of_circuits = len(self.data_preparator.get_training_data_labels())
 
-        output_folder = this_folder + "//circuit_preparation//data//circuits//" + str(run_id) + "//"
+        output_folder = this_folder + "//circuit_preparation//data//circuits//" + str(run_id) + '_' + str(self.database) + '_' + str(2**classification) + "//"
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
             print("The new directory: ", output_folder, " is created for circuits.")
 
-        self.results_folder = this_folder + "//training//results//" + self.identifier + "//"
+        self.results_folder = this_folder + "/training/results/" + self.identifier + "/"
         if not os.path.exists(self.results_folder):
             os.makedirs(self.results_folder)
             print("The new directory: ", self.results_folder, " is created for results.")
@@ -97,6 +97,7 @@ class SQL2Circuits():
         info = {
             "run_id": self.run_id,
             #"seed_file": self.seed_file,
+            "database": self.database,
             "qc_framework": self.qc_framework,
             "classical_optimizer": self.classical_optimizer,
             "measurement": self.measurement,
@@ -108,9 +109,11 @@ class SQL2Circuits():
             "epochs": self.epochs,
             "learning_rate": self.learning_rate,
             "classes": ' '.join(str(x) for x in self.data_preparator.get_classes()),
+            "cluster centers": ' '.join(str(x) for x in self.data_preparator.cluster_centers),
             "circuit_architecture": self.circuit_architecture
         }
-        json.dump(info, open("training_stats.json", "w"), indent = 4)
+        info_result_file = this_folder + "/training/results/" + self.identifier + "/training_stats.json"
+        json.dump(info, open(info_result_file, "w"), indent = 4)
 
         self.circuits = Circuits(run_id, 
                                  query_file, 
@@ -120,9 +123,9 @@ class SQL2Circuits():
                                  self.circuit_architecture,
                                  write_cfg_to_file = True, 
                                  write_pregroup_to_file=True,
-                                 generate_cfg_png_diagrams = True,
-                                 generate_pregroup_png_diagrams = True,
-                                 generate_circuit_png_diagrams = True)
+                                 generate_cfg_png_diagrams = False,
+                                 generate_pregroup_png_diagrams = False,
+                                 generate_circuit_png_diagrams = False)
         self.circuits.execute_full_transformation()
 
 
@@ -203,7 +206,7 @@ class SQL2Circuits():
                                                               validation_circuits = validation_circuits,
                                                               validation_labels = validation_labels,
                                                               qml_params = qml_params, 
-                                                              save_parameters = True)
+                                                              save_parameters = False)
             evaluator = Evaluation(self.run_id, self.identifier, self.result, test_circuits, test_labels)
             evaluator.evaluate_pennylane_on_test_set(number_of_selected_circuits)
         return self.result

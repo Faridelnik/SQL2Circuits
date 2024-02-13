@@ -57,7 +57,7 @@ class Evaluation:
     def evaluate_pennylane_optax_on_test_set(self, iteration):
         test_pred_fn = make_pennylane_pred_fn_for_gradient_descent(self.test_circuits)
         test_acc = self.accuracy(test_pred_fn(self.result_params), self.test_labels)
-        test_result_file = this_folder + "//training//results//" + self.identifier + "//test_accuracy.json"
+        test_result_file = this_folder + "/training/results/" + self.identifier + "/test_accuracy.json"
         if not os.path.isfile(test_result_file):
             with open(test_result_file, "w") as f:
                 json.dump({ "results": [] }, f, indent=4)
@@ -88,11 +88,10 @@ class Evaluation:
         # Create a colorful heatmap plot
         fig = plt.figure(figsize=(8, 6))
         label_list = ['Label {}'.format(i) for i in range(self.classification)]
-        sns.heatmap(cm, annot=True, cmap="RdPu", fmt=".2f", xticklabels=label_list, yticklabels=label_list)
-        #sns.heatmap(cm, annot=True, fmt=".2f", xticklabels=label_list, yticklabels=label_list)
+        sns.heatmap(cm, annot=True, cmap="Blues", fmt=".2f", xticklabels=label_list, yticklabels=label_list)
         plt.xlabel('Predicted')
         plt.ylabel('True')
         plt.title('Normalized Confusion Matrix SQL2Circuits Optax')
         fig_name = 'confusion_matrix_' + str(self.classification) + '_classes.png'
-        
-        fig.savefig(fig_name, dpi=fig.dpi)
+        fig_path = this_folder + "/training/results/" + self.identifier + "/"
+        fig.savefig(fig_path + fig_name, dpi=fig.dpi)

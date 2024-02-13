@@ -221,7 +221,7 @@ def plot_label_histograms(histogram_data, cluster_labels):
 
     for i in labels:
         data = [x for x, label in zip(histogram_data, cluster_labels) if label == i]
-        print(i, len(data))
+        print("label ", i, " , num of data points ", len(data))
         plt.hist(data, alpha=0.5, label='Label ' + str(i))
 
     plt.xlabel('Value')
@@ -275,7 +275,7 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
     # print("Number of classes: ", len(classes))
     # print("Number of labeled data: ", len(labeled_data))
     # print("Data: ", labeled_data)
-    return labeled_data, classes
+    return labeled_data, classes, cluster_centers
 
 
 def create_labeled_test_validation_classes(data, classes, workload):
