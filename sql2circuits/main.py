@@ -21,19 +21,19 @@ learning_rate = 0.07
 database = ["IMDB", "F1Data"]
 
 model = SQL2Circuits(database = database[1],
-                     run_id = 5,
-                     classification = 2,
+                     run_id = 1,
+                     classification = 4,
                      circuit_architecture = circuit_architecture,
                      seed_file = seed_file, 
                      qc_framework = qc_framework, 
                      classical_optimizer = classical_optimizer, 
                      measurement = measurement, 
                      workload_type = workload_type, 
-                     total_number_of_queries = 50,
-                     initial_number_of_circuits = 10, 
-                     number_of_circuits_to_add = 10,
+                     total_number_of_queries = 600,
+                     initial_number_of_circuits = 50, 
+                     number_of_circuits_to_add = 50,
                      iterative = True,
-                     epochs = 10,
+                     epochs = 200,
                      learning_rate=learning_rate)
 print("everything is ready for training")
 model.train()

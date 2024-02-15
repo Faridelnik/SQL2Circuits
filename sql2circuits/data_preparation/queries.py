@@ -12,7 +12,7 @@ class QueryGenerator:
     The generated queries are used for training, testing, and validation of SQL2Circuits model.
     """
 
-    def __init__(self, id, workload_type, database = "IMDB", query_seed_file_path = "", total_number_of_queries = 50, test_query_ratio = 0.2, validation_query_ratio = 0.2) -> None:
+    def __init__(self, id, workload_type, database = "IMDB", query_seed_file_path = "", total_number_of_queries = 50, test_query_ratio = 0.4, validation_query_ratio = 0.2) -> None:
         self.id = id
         self.database = database
         self.workload_type = workload_type

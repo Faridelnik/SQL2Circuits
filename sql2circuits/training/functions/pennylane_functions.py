@@ -161,7 +161,7 @@ def make_pennylane_pred_fn(circuits, parameters, classification):
 def cross_entropy(predictions, targets):
     N = predictions.shape[0]
     M = predictions.shape[1]
-    targets = targets.at[:, 1:M].multiply(20)
+    targets = targets.at[:, 1:M].multiply(40)
     ce = -np.sum(targets*np.log(predictions+1e-9))/N
     return ce
 
