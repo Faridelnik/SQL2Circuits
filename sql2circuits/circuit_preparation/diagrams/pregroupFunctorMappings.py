@@ -7,11 +7,15 @@ n, s = Ty('n'), Ty('s')
 functor_data = None
 this_folder = os.path.abspath(os.getcwd())
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "SQL2Circuits/sql2circuits/circuit_preparation/diagrams/pregroup_functor_data.json")
+
+with open(file_path) as json_file:
+    functor_data = json.load(json_file)
+
 # with open("circuit_preparation/diagrams/pregroup_functor_data.json") as json_file:
 #     functor_data = json.load(json_file)
-
-with open(this_folder + "/pregroup_functor_data.json") as json_file:
-    functor_data = json.load(json_file)
     
 def count_boxes(diagram, box_name):
     i = []
