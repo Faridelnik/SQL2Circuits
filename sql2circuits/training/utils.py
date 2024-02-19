@@ -254,7 +254,7 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
  
     # Sort cluster centers based on the first dimension
     cluster_centers = kmeans.cluster_centers_
-    sorted_centers = cluster_centers[np.argsort(cluster_centers[:, 0])]
+    sorted_centers = cluster_centers[numpy.argsort(cluster_centers[:, 0])]
 
     # Calculate midpoints between consecutive cluster centers
     cluster_boundaries = (sorted_centers[:-1, 0] + sorted_centers[1:, 0]) / 2
@@ -267,7 +267,7 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
     classes.append((cluster_boundaries[-1], float('inf')))
 
     for i, clas in enumerate(data):
-        labeled_data[clas["id"]] = np.eye(2**classification)[cluster_labels[i]]
+        labeled_data[clas["id"]] = numpy.eye(2**classification)[cluster_labels[i]]
 
     plot_label_histograms(all_execution_times, cluster_labels)
 
