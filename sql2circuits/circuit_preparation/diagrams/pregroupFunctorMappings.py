@@ -9,7 +9,7 @@ this_folder = os.path.abspath(os.getcwd())
 
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(script_dir, "SQL2Circuits/sql2circuits/circuit_preparation/diagrams/pregroup_functor_data.json")
+file_path = os.path.join(script_dir, "pregroup_functor_data.json")
 
 with open(file_path) as json_file:
     functor_data = json.load(json_file)
