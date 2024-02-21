@@ -4,6 +4,16 @@
             "step": 50,
             "test_accuracy": 0.8,
             "number_of_test_circuits": 50
+        },
+        {
+            "step": 100,
+            "test_accuracy": 0.92,
+            "number_of_test_circuits": 100
+        },
+        {
+            "step": 150,
+            "test_accuracy": 0.8933333333333333,
+            "number_of_test_circuits": 150
         }
     ]
 }

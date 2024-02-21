@@ -92,6 +92,6 @@ class Evaluation:
         plt.xlabel('Predicted')
         plt.ylabel('True')
         plt.title('Normalized Confusion Matrix SQL2Circuits Optax')
-        fig_name = 'confusion_matrix_' + str(self.classification) + '_classes.png'
+        fig_name = 'confusion_matrix_' + str(self.classification) + '_classes' + str(iteration) + '_circuits.png'
         fig_path = this_folder + "/training/results/" + self.identifier + "/"
         fig.savefig(fig_path + fig_name, dpi=fig.dpi)

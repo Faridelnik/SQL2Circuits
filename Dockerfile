@@ -59,7 +59,7 @@ WORKDIR /qc4db
 #RUN pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
  
 RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
-    optax==0.1.7 lambeq==0.4.0 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.26.4 PennyLane==0.34.0 \
+    optax==0.1.7 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.26.4 PennyLane==0.34.0 \
     psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2 chex==0.1.8
 RUN pip install -U scikit-learn
 
@@ -81,7 +81,7 @@ RUN /etc/init.d/postgresql start \
     && psql -d F1Data -f /qc4db/dataBase/ergastF1/load.sql
 
 # create and populate IMDB database
-USER root
+#USER root
 # RUN pip install imdbpy
 
 # WORKDIR /qc4db/dat
