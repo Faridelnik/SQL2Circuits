@@ -7,13 +7,28 @@
         },
         {
             "step": 100,
-            "test_accuracy": 0.92,
+            "test_accuracy": 0.8,
             "number_of_test_circuits": 100
         },
         {
             "step": 150,
-            "test_accuracy": 0.8933333333333333,
+            "test_accuracy": 0.7866666666666666,
             "number_of_test_circuits": 150
+        },
+        {
+            "step": 200,
+            "test_accuracy": 0.81,
+            "number_of_test_circuits": 200
+        },
+        {
+            "step": 250,
+            "test_accuracy": 0.8,
+            "number_of_test_circuits": 250
+        },
+        {
+            "step": 300,
+            "test_accuracy": 0.8133333333333334,
+            "number_of_test_circuits": 300
         }
     ]
 }
