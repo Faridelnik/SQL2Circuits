@@ -1,0 +1,607 @@
+ * Starting PostgreSQL 14 database server
+   ...done.
+The selected configuration is: 
+Chosen database:  F1Data
+Run id:  2
+Seed file:  data_preparation//query_seeds//JOB_query_seed_cardinality_small_F1data.json
+Quantum circuit framework:  pennylane
+Classical optimizer:  optax_adamw
+Measurement:  state
+Workload type:  execution_time
+Initial number of circuits:  350
+Number of circuits to add:  50
+Iterative:  True
+Classification:  4  classes
+Epochs:  200
+Learning rate:  0.07
+Circuit architecture:  Sim14Ansatz
+Query file already exists.
+Number of training queries is  814
+Number of test queries is  835
+Number of validation queries is  351
+execution_time
+Data file is  /qc4db/SQL2Circuits/sql2circuits/data_preparation/data/execution_time/2_data.json
+label  0  , num of data points  663
+label  1  , num of data points  31
+label  2  , num of data points  9
+label  3  , num of data points  23
+Classes:  [(0, 1199.343734306427), (1199.343734306427, 5569.130153763442), (5569.130153763442, 12978.232299275362), (12978.232299275362, inf)]
+The new directory:  /qc4db/SQL2Circuits/sql2circuits/training/results/2_F1Data_4_classes_pennylane_optax_adamw_state_Sim14Ansatz_execution_time_350_50_007/  is created for results.
+everything is ready for training
+Number of training circuits is  350
+No parameters file found
+Number of training circuits:  350
+Number of validation circuits:  319
+Step 0, Cost: 12.996042434658323
+Accuracy:  0.03142857142857143
+Validation accuracy:  0.05329153605015674
+Step 10, Cost: 3.9608707718338283
+Accuracy:  0.13142857142857142
+Validation accuracy:  0.10344827586206896
+Step 20, Cost: 2.8477509787252973
+Accuracy:  0.3628571428571429
+Validation accuracy:  0.31347962382445144
+Step 30, Cost: 2.0574233372296606
+Accuracy:  0.5542857142857143
+Validation accuracy:  0.5078369905956113
+Step 40, Cost: 1.6806846389387335
+Accuracy:  0.7057142857142857
+Validation accuracy:  0.6300940438871473
+Step 50, Cost: 1.2738920693365592
+Accuracy:  0.7285714285714285
+Validation accuracy:  0.6614420062695925
+Step 60, Cost: 1.0915862791053952
+Accuracy:  0.78
+Validation accuracy:  0.6990595611285266
+Step 70, Cost: 0.9290875691681036
+Accuracy:  0.8342857142857143
+Validation accuracy:  0.7115987460815048
+Step 80, Cost: 0.8396055578067899
+Accuracy:  0.84
+Validation accuracy:  0.7241379310344828
+Step 90, Cost: 0.8080725703747677
+Accuracy:  0.8485714285714285
+Validation accuracy:  0.7398119122257053
+Step 100, Cost: 0.7717448985017836
+Accuracy:  0.8542857142857143
+Validation accuracy:  0.7335423197492164
+Step 110, Cost: 0.7465077484266034
+Accuracy:  0.8514285714285714
+Validation accuracy:  0.7366771159874608
+Step 120, Cost: 0.7217250881423908
+Accuracy:  0.86
+Validation accuracy:  0.7272727272727273
+Step 130, Cost: 0.7014866874207344
+Accuracy:  0.8657142857142858
+Validation accuracy:  0.7241379310344828
+Step 140, Cost: 0.682481241337955
+Accuracy:  0.8628571428571429
+Validation accuracy:  0.7178683385579937
+Step 150, Cost: 0.6770885846417929
+Accuracy:  0.8457142857142858
+Validation accuracy:  0.6959247648902821
+Step 160, Cost: 0.6710383700672538
+Accuracy:  0.8628571428571429
+Validation accuracy:  0.7147335423197492
+Step 170, Cost: 0.6496967127001179
+Accuracy:  0.8657142857142858
+Validation accuracy:  0.7053291536050157
+Step 180, Cost: 0.6399589096249214
+Accuracy:  0.8685714285714285
+Validation accuracy:  0.7272727272727273
+Step 190, Cost: 0.6348874516545662
+Accuracy:  0.8685714285714285
+Validation accuracy:  0.7366771159874608
+Number of training circuits is  400
+Parameters loaded from file
+Number of training circuits:  400
+Number of validation circuits:  319
+Step 0, Cost: 1.3336670947074891
+Accuracy:  0.82
+Validation accuracy:  0.7398119122257053
+Step 10, Cost: 1.140730887921527
+Accuracy:  0.845
+Validation accuracy:  0.7335423197492164
+Step 20, Cost: 0.9282427970157004
+Accuracy:  0.8675
+Validation accuracy:  0.7617554858934169
+Step 30, Cost: 0.8348436675441917
+Accuracy:  0.87
+Validation accuracy:  0.774294670846395
+Step 40, Cost: 0.7955083683459088
+Accuracy:  0.87
+Validation accuracy:  0.780564263322884
+Step 50, Cost: 0.766246035292279
+Accuracy:  0.875
+Validation accuracy:  0.7836990595611285
+Step 60, Cost: 0.7406601399800274
+Accuracy:  0.8825
+Validation accuracy:  0.8025078369905956
+Step 70, Cost: 0.7187699959729799
+Accuracy:  0.8725
+Validation accuracy:  0.7836990595611285
+Step 80, Cost: 0.69696118421969
+Accuracy:  0.865
+Validation accuracy:  0.7774294670846394
+Step 90, Cost: 0.6763780034743831
+Accuracy:  0.87
+Validation accuracy:  0.7774294670846394
+Step 100, Cost: 0.6645895625426783
+Accuracy:  0.8675
+Validation accuracy:  0.7774294670846394
+Step 110, Cost: 0.702996801205445
+Accuracy:  0.8625
+Validation accuracy:  0.768025078369906
+Step 120, Cost: 0.6691961346977041
+Accuracy:  0.8725
+Validation accuracy:  0.786833855799373
+Step 130, Cost: 0.6295488800555177
+Accuracy:  0.875
+Validation accuracy:  0.7836990595611285
+Step 140, Cost: 0.6239354579649807
+Accuracy:  0.875
+Validation accuracy:  0.7899686520376176
+Step 150, Cost: 0.6455407120075688
+Accuracy:  0.87
+Validation accuracy:  0.780564263322884
+Step 160, Cost: 0.7716985271309386
+Accuracy:  0.8575
+Validation accuracy:  0.7836990595611285
+Step 170, Cost: 0.6862110731186113
+Accuracy:  0.8625
+Validation accuracy:  0.774294670846395
+Step 180, Cost: 0.6338494552604971
+Accuracy:  0.8725
+Validation accuracy:  0.7836990595611285
+Step 190, Cost: 0.6246209995145909
+Accuracy:  0.8625
+Validation accuracy:  0.780564263322884
+Number of training circuits is  450
+Parameters loaded from file
+Number of training circuits:  450
+Number of validation circuits:  319
+Step 0, Cost: 2.1972504768543875
+Accuracy:  0.8177777777777778
+Validation accuracy:  0.7366771159874608
+Step 10, Cost: 1.5510693164252574
+Accuracy:  0.82
+Validation accuracy:  0.7586206896551724
+Step 20, Cost: 1.387854597022136
+Accuracy:  0.8488888888888889
+Validation accuracy:  0.786833855799373
+Step 30, Cost: 1.2641788328232038
+Accuracy:  0.84
+Validation accuracy:  0.7492163009404389
+Step 40, Cost: 1.1866075231341853
+Accuracy:  0.8422222222222222
+Validation accuracy:  0.7586206896551724
+Step 50, Cost: 1.1414509924107956
+Accuracy:  0.8422222222222222
+Validation accuracy:  0.7711598746081505
+Step 60, Cost: 1.1130739516661399
+Accuracy:  0.8422222222222222
+Validation accuracy:  0.7617554858934169
+Step 70, Cost: 1.0931055648376544
+Accuracy:  0.8466666666666667
+Validation accuracy:  0.7648902821316614
+Step 80, Cost: 1.0892730369067027
+Accuracy:  0.84
+Validation accuracy:  0.7523510971786834
+Step 90, Cost: 1.1432341438997538
+Accuracy:  0.84
+Validation accuracy:  0.7523510971786834
+Step 100, Cost: 1.1003389292437997
+Accuracy:  0.8466666666666667
+Validation accuracy:  0.7523510971786834
+Step 110, Cost: 1.0687538775201473
+Accuracy:  0.8466666666666667
+Validation accuracy:  0.7523510971786834
+Step 120, Cost: 1.0510347274214857
+Accuracy:  0.8488888888888889
+Validation accuracy:  0.7554858934169278
+Step 130, Cost: 1.011739053407477
+Accuracy:  0.8444444444444444
+Validation accuracy:  0.7617554858934169
+Step 140, Cost: 1.1518451865865953
+Accuracy:  0.8066666666666666
+Validation accuracy:  0.7366771159874608
+Step 150, Cost: 1.082287980026255
+Accuracy:  0.8444444444444444
+Validation accuracy:  0.7492163009404389
+Step 160, Cost: 1.0175463799118167
+Accuracy:  0.8688888888888889
+Validation accuracy:  0.7931034482758621
+Step 170, Cost: 0.9963246516365972
+Accuracy:  0.88
+Validation accuracy:  0.799373040752351
+Step 180, Cost: 0.9774653351555268
+Accuracy:  0.8822222222222222
+Validation accuracy:  0.7962382445141066
+Step 190, Cost: 1.2512112999624676
+Accuracy:  0.8088888888888889
+Validation accuracy:  0.7523510971786834
+Number of training circuits is  500
+Parameters loaded from file
+Number of training circuits:  500
+Number of validation circuits:  319
+Step 0, Cost: 1.6145539111346006
+Accuracy:  0.79
+Validation accuracy:  0.7429467084639498
+Step 10, Cost: 1.414910407371819
+Accuracy:  0.794
+Validation accuracy:  0.7586206896551724
+Step 20, Cost: 1.2591530264765025
+Accuracy:  0.8
+Validation accuracy:  0.7586206896551724
+Step 30, Cost: 1.150202173974365
+Accuracy:  0.816
+Validation accuracy:  0.7648902821316614
+Step 40, Cost: 1.0844310690797865
+Accuracy:  0.852
+Validation accuracy:  0.7836990595611285
+Step 50, Cost: 1.067645539395511
+Accuracy:  0.846
+Validation accuracy:  0.7774294670846394
+Step 60, Cost: 1.044809570555575
+Accuracy:  0.872
+Validation accuracy:  0.799373040752351
+Step 70, Cost: 1.0130541526526213
+Accuracy:  0.876
+Validation accuracy:  0.799373040752351
+Step 80, Cost: 1.0038228622013703
+Accuracy:  0.88
+Validation accuracy:  0.8025078369905956
+Step 90, Cost: 1.079966996368952
+Accuracy:  0.858
+Validation accuracy:  0.786833855799373
+Step 100, Cost: 1.0073184537794442
+Accuracy:  0.874
+Validation accuracy:  0.8056426332288401
+Step 110, Cost: 1.000281249581836
+Accuracy:  0.882
+Validation accuracy:  0.7962382445141066
+Step 120, Cost: 0.9694479343602433
+Accuracy:  0.882
+Validation accuracy:  0.7931034482758621
+Step 130, Cost: 0.9643174449969083
+Accuracy:  0.886
+Validation accuracy:  0.799373040752351
+Step 140, Cost: 1.0236876198276876
+Accuracy:  0.872
+Validation accuracy:  0.799373040752351
+Step 150, Cost: 1.0181055417750031
+Accuracy:  0.874
+Validation accuracy:  0.7931034482758621
+Step 160, Cost: 0.9912055154964328
+Accuracy:  0.88
+Validation accuracy:  0.7962382445141066
+Step 170, Cost: 0.964830874716863
+Accuracy:  0.886
+Validation accuracy:  0.8025078369905956
+Step 180, Cost: 1.110370381111279
+Accuracy:  0.876
+Validation accuracy:  0.799373040752351
+Step 190, Cost: 1.0080180111303925
+Accuracy:  0.88
+Validation accuracy:  0.7962382445141066
+Number of training circuits is  550
+Parameters loaded from file
+Number of training circuits:  550
+Number of validation circuits:  319
+Step 0, Cost: 1.5461496974239972
+Accuracy:  0.8309090909090909
+Validation accuracy:  0.780564263322884
+Step 10, Cost: 1.4933338333293795
+Accuracy:  0.7436363636363637
+Validation accuracy:  0.6927899686520376
+Step 20, Cost: 1.2949833001954143
+Accuracy:  0.8036363636363636
+Validation accuracy:  0.7147335423197492
+Step 30, Cost: 1.3602574130977418
+Accuracy:  0.7872727272727272
+Validation accuracy:  0.7335423197492164
+Step 40, Cost: 1.3020855499922552
+Accuracy:  0.7890909090909091
+Validation accuracy:  0.7429467084639498
+Step 50, Cost: 1.2258453741965984
+Accuracy:  0.7927272727272727
+Validation accuracy:  0.7366771159874608
+Step 60, Cost: 1.1695881818692115
+Accuracy:  0.8072727272727273
+Validation accuracy:  0.7366771159874608
+Step 70, Cost: 1.1346047028433532
+Accuracy:  0.8272727272727273
+Validation accuracy:  0.7460815047021944
+Step 80, Cost: 1.097393782628192
+Accuracy:  0.8345454545454546
+Validation accuracy:  0.7617554858934169
+Step 90, Cost: 1.0647313358871775
+Accuracy:  0.8727272727272727
+Validation accuracy:  0.8150470219435737
+Step 100, Cost: 1.0471109126330438
+Accuracy:  0.8781818181818182
+Validation accuracy:  0.8056426332288401
+Step 110, Cost: 1.0199842471256853
+Accuracy:  0.88
+Validation accuracy:  0.8119122257053292
+Step 120, Cost: 1.00877626510083
+Accuracy:  0.8818181818181818
+Validation accuracy:  0.8087774294670846
+Step 130, Cost: 1.0013908548145132
+Accuracy:  0.8836363636363637
+Validation accuracy:  0.8119122257053292
+Step 140, Cost: 0.995266903764145
+Accuracy:  0.88
+Validation accuracy:  0.8119122257053292
+Step 150, Cost: 0.9847606413472783
+Accuracy:  0.8836363636363637
+Validation accuracy:  0.8119122257053292
+Step 160, Cost: 0.9940132514649833
+Accuracy:  0.8836363636363637
+Validation accuracy:  0.8119122257053292
+Step 170, Cost: 1.0151277316514065
+Accuracy:  0.9072727272727272
+Validation accuracy:  0.8275862068965517
+Step 180, Cost: 1.0139678604850038
+Accuracy:  0.88
+Validation accuracy:  0.7931034482758621
+Step 190, Cost: 0.9899073604460467
+Accuracy:  0.9145454545454546
+Validation accuracy:  0.8307210031347962
+Number of training circuits is  600
+Parameters loaded from file
+Number of training circuits:  600
+Number of validation circuits:  319
+Step 0, Cost: 1.1298500435690706
+Accuracy:  0.8816666666666667
+Validation accuracy:  0.8338557993730408
+Step 10, Cost: 1.6987524229039748
+Accuracy:  0.81
+Validation accuracy:  0.7586206896551724
+Step 20, Cost: 1.3772957004296282
+Accuracy:  0.8383333333333334
+Validation accuracy:  0.7774294670846394
+Step 30, Cost: 1.242679325186958
+Accuracy:  0.85
+Validation accuracy:  0.7962382445141066
+Step 40, Cost: 1.1452234228296827
+Accuracy:  0.895
+Validation accuracy:  0.8338557993730408
+Step 50, Cost: 1.1158630676288157
+Accuracy:  0.895
+Validation accuracy:  0.8150470219435737
+Step 60, Cost: 1.0866568915142367
+Accuracy:  0.895
+Validation accuracy:  0.8213166144200627
+Step 70, Cost: 1.0762902004023394
+Accuracy:  0.895
+Validation accuracy:  0.8338557993730408
+Step 80, Cost: 1.0678159135207534
+Accuracy:  0.895
+Validation accuracy:  0.8338557993730408
+Step 90, Cost: 1.0579367842214802
+Accuracy:  0.8933333333333333
+Validation accuracy:  0.8307210031347962
+Step 100, Cost: 1.0448586514033378
+Accuracy:  0.895
+Validation accuracy:  0.8275862068965517
+Step 110, Cost: 1.045375105617568
+Accuracy:  0.895
+Validation accuracy:  0.8244514106583072
+Step 120, Cost: 1.0432706386068216
+Accuracy:  0.9
+Validation accuracy:  0.8275862068965517
+Step 130, Cost: 1.060695294116934
+Accuracy:  0.8983333333333333
+Validation accuracy:  0.8338557993730408
+Step 140, Cost: 1.0413205708563327
+Accuracy:  0.8983333333333333
+Validation accuracy:  0.8307210031347962
+Step 150, Cost: 1.0323730136702458
+Accuracy:  0.9016666666666666
+Validation accuracy:  0.8275862068965517
+Step 160, Cost: 1.0764751096783827
+Accuracy:  0.9016666666666666
+Validation accuracy:  0.8244514106583072
+Step 170, Cost: 1.0230949213185037
+Accuracy:  0.9
+Validation accuracy:  0.8275862068965517
+Step 180, Cost: 1.0802420560192938
+Accuracy:  0.9033333333333333
+Validation accuracy:  0.8181818181818182
+Step 190, Cost: 1.0280201621431238
+Accuracy:  0.8983333333333333
+Validation accuracy:  0.8213166144200627
+Number of training circuits is  650
+Parameters loaded from file
+Number of training circuits:  650
+Number of validation circuits:  319
+Step 0, Cost: 1.5868804162095946
+Accuracy:  0.8846153846153846
+Validation accuracy:  0.8087774294670846
+Step 10, Cost: 1.782015674612843
+Accuracy:  0.7830769230769231
+Validation accuracy:  0.7241379310344828
+Step 20, Cost: 1.5078237534171113
+Accuracy:  0.8384615384615385
+Validation accuracy:  0.7586206896551724
+Step 30, Cost: 1.383146561015254
+Accuracy:  0.8646153846153846
+Validation accuracy:  0.768025078369906
+Step 40, Cost: 1.2915401563306268
+Accuracy:  0.8861538461538462
+Validation accuracy:  0.7962382445141066
+Step 50, Cost: 1.233871625669014
+Accuracy:  0.8815384615384615
+Validation accuracy:  0.8087774294670846
+Step 60, Cost: 1.2617189120315015
+Accuracy:  0.8707692307692307
+Validation accuracy:  0.7836990595611285
+Step 70, Cost: 1.1891712610882061
+Accuracy:  0.8830769230769231
+Validation accuracy:  0.799373040752351
+Step 80, Cost: 1.1629755973063696
+Accuracy:  0.8769230769230769
+Validation accuracy:  0.8056426332288401
+Step 90, Cost: 1.1738945778659904
+Accuracy:  0.8753846153846154
+Validation accuracy:  0.786833855799373
+Step 100, Cost: 1.1631601584888995
+Accuracy:  0.8769230769230769
+Validation accuracy:  0.8025078369905956
+Step 110, Cost: 1.1308775455375704
+Accuracy:  0.8615384615384616
+Validation accuracy:  0.7774294670846394
+Step 120, Cost: 1.144830673087675
+Accuracy:  0.8646153846153846
+Validation accuracy:  0.7648902821316614
+Step 130, Cost: 1.121505436997574
+Accuracy:  0.8646153846153846
+Validation accuracy:  0.7648902821316614
+Step 140, Cost: 1.1064863213552878
+Accuracy:  0.8707692307692307
+Validation accuracy:  0.7586206896551724
+Step 150, Cost: 1.0960422226206328
+Accuracy:  0.8723076923076923
+Validation accuracy:  0.7774294670846394
+Step 160, Cost: 1.1048402192830467
+Accuracy:  0.8753846153846154
+Validation accuracy:  0.768025078369906
+Step 170, Cost: 1.102845091089033
+Accuracy:  0.88
+Validation accuracy:  0.7648902821316614
+Step 180, Cost: 1.0822979511822073
+Accuracy:  0.8753846153846154
+Validation accuracy:  0.768025078369906
+Step 190, Cost: 1.0875403148200935
+Accuracy:  0.8769230769230769
+Validation accuracy:  0.774294670846395
+Number of training circuits is  700
+Parameters loaded from file
+Number of training circuits:  700
+Number of validation circuits:  320
+Step 0, Cost: 1.1410789762304296
+Accuracy:  0.8228571428571428
+Validation accuracy:  0.76875
+Step 10, Cost: 1.7886609669242586
+Accuracy:  0.7428571428571429
+Validation accuracy:  0.69375
+Step 20, Cost: 1.5145438088263785
+Accuracy:  0.7614285714285715
+Validation accuracy:  0.690625
+Step 30, Cost: 1.3561513537381376
+Accuracy:  0.8485714285714285
+Validation accuracy:  0.759375
+Step 40, Cost: 1.2742551970535092
+Accuracy:  0.8571428571428571
+Validation accuracy:  0.765625
+Step 50, Cost: 1.2230797123376813
+Accuracy:  0.8514285714285714
+Validation accuracy:  0.76875
+Step 60, Cost: 1.1842483968753368
+Accuracy:  0.8571428571428571
+Validation accuracy:  0.771875
+Step 70, Cost: 1.2130164972878992
+Accuracy:  0.8614285714285714
+Validation accuracy:  0.778125
+Step 80, Cost: 1.189247804968618
+Accuracy:  0.8742857142857143
+Validation accuracy:  0.784375
+Step 90, Cost: 1.1483442099791552
+Accuracy:  0.89
+Validation accuracy:  0.803125
+Step 100, Cost: 1.1357023175406669
+Accuracy:  0.8942857142857142
+Validation accuracy:  0.8
+Step 110, Cost: 1.1289031103546066
+Accuracy:  0.8971428571428571
+Validation accuracy:  0.796875
+Step 120, Cost: 1.124356541353544
+Accuracy:  0.8957142857142857
+Validation accuracy:  0.796875
+Step 130, Cost: 1.134427343416693
+Accuracy:  0.9014285714285715
+Validation accuracy:  0.8125
+Step 140, Cost: 1.138348909863936
+Accuracy:  0.9071428571428571
+Validation accuracy:  0.81875
+Step 150, Cost: 1.2340909826116901
+Accuracy:  0.8728571428571429
+Validation accuracy:  0.790625
+Step 160, Cost: 1.1590202470463036
+Accuracy:  0.9114285714285715
+Validation accuracy:  0.84375
+Step 170, Cost: 1.1314263186743483
+Accuracy:  0.9185714285714286
+Validation accuracy:  0.84375
+Step 180, Cost: 1.090234003010472
+Accuracy:  0.9214285714285714
+Validation accuracy:  0.846875
+Step 190, Cost: 1.05464918765439
+Accuracy:  0.9214285714285714
+Validation accuracy:  0.85625
+Number of training circuits is  726
+Parameters loaded from file
+Number of training circuits:  726
+Number of validation circuits:  320
+Step 0, Cost: 1.4057732305217525
+Accuracy:  0.8732782369146006
+Validation accuracy:  0.853125
+Step 10, Cost: 1.44472243917013
+Accuracy:  0.8264462809917356
+Validation accuracy:  0.8
+Step 20, Cost: 1.1948131895303398
+Accuracy:  0.8898071625344353
+Validation accuracy:  0.834375
+Step 30, Cost: 1.0846343762010398
+Accuracy:  0.8746556473829201
+Validation accuracy:  0.834375
+Step 40, Cost: 0.9992849247417215
+Accuracy:  0.8815426997245179
+Validation accuracy:  0.8375
+Step 50, Cost: 0.9300439962469421
+Accuracy:  0.8898071625344353
+Validation accuracy:  0.85625
+Step 60, Cost: 0.8564302156494608
+Accuracy:  0.8732782369146006
+Validation accuracy:  0.821875
+Step 70, Cost: 0.7625041274769493
+Accuracy:  0.871900826446281
+Validation accuracy:  0.809375
+Step 80, Cost: 0.7480990003028593
+Accuracy:  0.8829201101928374
+Validation accuracy:  0.815625
+Step 90, Cost: 0.7345691568288085
+Accuracy:  0.8829201101928374
+Validation accuracy:  0.825
+Step 100, Cost: 0.6810783359073629
+Accuracy:  0.8870523415977961
+Validation accuracy:  0.846875
+Step 110, Cost: 0.6839796975081832
+Accuracy:  0.8911845730027548
+Validation accuracy:  0.85625
+Step 120, Cost: 0.6673892451576586
+Accuracy:  0.8939393939393939
+Validation accuracy:  0.853125
+Step 130, Cost: 0.6612302797051793
+Accuracy:  0.90633608815427
+Validation accuracy:  0.840625
+Step 140, Cost: 0.7408514145642106
+Accuracy:  0.9049586776859504
+Validation accuracy:  0.853125
+Step 150, Cost: 0.6621468996368708
+Accuracy:  0.8939393939393939
+Validation accuracy:  0.834375
+Step 160, Cost: 0.6393868560455714
+Accuracy:  0.9077134986225895
+Validation accuracy:  0.85625
+Step 170, Cost: 0.6705087055416891
+Accuracy:  0.9118457300275482
+Validation accuracy:  0.85
+Step 180, Cost: 0.6098403229984934
+Accuracy:  0.9090909090909091
+Validation accuracy:  0.85
+Step 190, Cost: 0.6243430546365586
+Accuracy:  0.9104683195592287
+Validation accuracy:  0.859375
+Iterative training finished

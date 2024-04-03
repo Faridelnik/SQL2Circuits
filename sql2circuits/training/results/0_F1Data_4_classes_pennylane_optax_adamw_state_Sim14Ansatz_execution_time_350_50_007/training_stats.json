@@ -1,0 +1,17 @@
+{
+    "run_id": 2,
+    "database": "F1Data",
+    "qc_framework": "pennylane",
+    "classical_optimizer": "optax_adamw",
+    "measurement": "state",
+    "workload_type": "execution_time",
+    "initial_number_of_circuits": 350,
+    "number_of_circuits_to_add": 50,
+    "iterative": true,
+    "classification": 4,
+    "epochs": 200,
+    "learning_rate": 0.07,
+    "classes": "(0, 1199.343734306427) (1199.343734306427, 5569.130153763442) (5569.130153763442, 12978.232299275362) (12978.232299275362, inf)",
+    "cluster centers": "[24.34549442] [2374.34197419] [8763.91833333] [17192.54626522]",
+    "circuit_architecture": "Sim14Ansatz"
+}
