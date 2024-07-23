@@ -25,7 +25,7 @@ class Database:
         self.host = "localhost"
         self.port = "5432"
         if self.name == "IMDB":
-            self.pg_db_name = "imdbload"
+            self.pg_db_name = "imdb"
         elif self.name == "F1Data":
             self.pg_db_name = "ergastF1"        
         #self.pg_user = "postgres"

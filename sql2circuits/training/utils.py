@@ -242,9 +242,16 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
         all_execution_times = []
         for td in data:
             all_execution_times.append(td["time"])
-            
+
+    elif workload == "cardinality" or workload == "C":
+        if type(data) != list:
+            data = [{"id": k, "cardinality": v} for k, v in data.items()]
+        all_execution_times = []
+        for td in data:
+            all_execution_times.append(td["cardinality"])
+    
     # Convert a 1D array into a NumPy array with shape (-1, 1)
-    X = np.array(all_execution_times).reshape(-1, 1)
+    X = numpy.array(all_execution_times).reshape(-1, 1)
     # Create a KMeans model with 2 clusters
     kmeans = KMeans(n_clusters=2**classification, random_state=0)
     # Fit the model to the data

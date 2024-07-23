@@ -1,15 +1,13 @@
-# build takes ~200s (on MBAm2 amd64 emulated) and ~70s (on MBAm2 arm64 native)
-# substitute PLATFORM with linux/arm64 or linux/amd64 and DOCKERFILE 
-# build with: docker buildx build --platform PLATFORM --progress=plain -t server -f docker/DOCKERFILE .
-# run with: docker run  --platform PLATFORM -P --name pgs -it --rm server
+# build with: docker build --rm -t sql2circuits_image -f SQL2Circuits/Dockerfile .
+# run with: docker run -it -v "$(pwd)/SQL2Circuits:/qc4db/SQL2Circuits" --gpus 1 sql2circuits_image bash
 
 # Load base image:
-# FROM ubuntu:22.04
-# ENV lsb_release_cs=jammy
+FROM ubuntu:22.04
+ENV lsb_release_cs=jammy
 
 #FROM nvidia/cuda:12.3.1-base-ubuntu22.04
-FROM nvidia/cuda:11.8.0-base-ubuntu22.04
-ENV lsb_release_cs=jammy
+#FROM nvidia/cuda:11.8.0-base-ubuntu22.04
+#ENV lsb_release_cs=jammy
 
 USER root
 SHELL ["/bin/bash", "-c"]
@@ -55,22 +53,6 @@ WORKDIR /qc4db
 COPY dataBase ./dataBase
 
 WORKDIR /qc4db
-
-RUN pip install --upgrade pip
-RUN pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-RUN pip install --upgrade "jax[cuda11_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
- 
-# RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
-#     optax==0.1.7 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.23.5 PennyLane==0.32.0 \
-#     psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2
-
-RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
-    optax==0.1.9 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.26.4 PennyLane==0.34.0 \
-    psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2 chex==0.1.85
-# RUN pip install -U scikit-learn
-# RUN pip install jax==0.4.20 jaxlib==0.4.20+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-# RUN pip install jax==0.4.7 jaxlib==0.4.7+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html chex==0.1.7
-
 # init users and data bases for tests
 USER postgres
 RUN /etc/init.d/postgresql start \
@@ -82,10 +64,12 @@ RUN /etc/init.d/postgresql start \
     && psql -d F1Data -f /qc4db/dataBase/ergastF1/create.sql \
     && psql -d F1Data -f /qc4db/dataBase/ergastF1/load.sql
 
-# create and populate IMDB database
+RUN pip install --upgrade pip
+
 USER root
 
-# Install IMDB  -------------------------------------------------------
+# Create IMDB database -----------------------------------------------------------------------
+
 WORKDIR /qc4db/IMDBdataset
 RUN wget -O /qc4db/IMDBdataset/imdb_pg11 https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/2QYZBT/TGYUNU
 USER postgres
@@ -93,7 +77,36 @@ RUN /etc/init.d/postgresql start \
     && createdb imdb \
     && pg_restore -x --no-owner -d imdb -1 /qc4db/IMDBdataset/imdb_pg11
 
+
+# Install packages ---------------------------------------------------------------------------
 USER root
+RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
+    optax==0.1.9 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.26.4 PennyLane==0.34.0 \
+    psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2 chex==0.1.85
+
+# torch >=1.12.1
+
+RUN pip install jax==0.4.24 jaxlib==0.4.24+cuda12.cudnn89 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+RUN pip install -U nvidia-cudnn-cu12==8.9.2.26
+
+#RUN pip install -U "jax[cuda12]"
+
+#RUN pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+#RUN pip install --upgrade "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases // jax-0.4.30 jaxlib-0.4.30 nvidia-cudnn-cu12-9.2.1.18
+
+#pip3 install -U nvidia-cudnn-cu12==8.9.7.29
+#RUN pip install --upgrade "jax[cuda11_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+ 
+# RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
+#     optax==0.1.7 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.23.5 PennyLane==0.32.0 \
+#     psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2
+
+# RUN pip install -U scikit-learn
+# RUN pip install jax==0.4.29 jaxlib==0.4.29+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+# RUN pip install jax==0.4.7 jaxlib==0.4.7+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html chex==0.1.7
+
+# start the training ---------------------------------------------------------------------------
+CMD ["cd ..", "/etc/init.d/postgresql start", "cd SQL2Circuits/sql2circuits", "python3 main.py"]
 
 
 

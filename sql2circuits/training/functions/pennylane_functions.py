@@ -4,6 +4,7 @@ import collections
 import multiprocessing
 import pennylane as qml
 import jax
+import numpy
 try:
     from jax import numpy as np
 except ModuleNotFoundError:
@@ -65,7 +66,7 @@ def transform_into_pennylane_circuits(circuits, classification, measurement, int
         # Produces a dictionary like {2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0} 
         # where the wires 0 and 1 are the classifying wires
         post_selection = dict([(i, 0) for i in range(classification, n_qubits)])
-        valid_states = np.array(get_valid_states(n_qubits, post_selection))
+        valid_states = numpy.array(get_valid_states(n_qubits, post_selection))
         qml_circuits[circ_key] = PennylaneCircuit(ops, 
                                                   params, 
                                                   pennylane_wires, 
