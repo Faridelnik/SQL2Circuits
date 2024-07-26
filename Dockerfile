@@ -106,8 +106,8 @@ RUN pip install -U nvidia-cudnn-cu12==8.9.2.26
 # RUN pip install jax==0.4.7 jaxlib==0.4.7+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html chex==0.1.7
 
 # start the training ---------------------------------------------------------------------------
-CMD ["cd ..", "/etc/init.d/postgresql start", "cd SQL2Circuits/sql2circuits", "python3 main.py"]
-
+WORKDIR /qc4db
+CMD ["sh", "-c", "/etc/init.d/postgresql start && cd /qc4db/SQL2Circuits/sql2circuits && python3 main.py"]
 
 
 

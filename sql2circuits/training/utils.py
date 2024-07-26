@@ -261,7 +261,8 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
  
     # Sort cluster centers based on the first dimension
     cluster_centers = kmeans.cluster_centers_
-    sorted_centers = cluster_centers[numpy.argsort(cluster_centers[:, 0])]
+    sorted_indices = numpy.argsort(cluster_centers[:, 0])
+    sorted_centers = cluster_centers[sorted_indices]
 
     # Calculate midpoints between consecutive cluster centers
     cluster_boundaries = (sorted_centers[:-1, 0] + sorted_centers[1:, 0]) / 2
@@ -273,16 +274,19 @@ def create_labeled_training_classes_kmeans(data, classification, workload):
     # Adding the last class, which goes up to positive infinity
     classes.append((cluster_boundaries[-1], float('inf')))
 
-    for i, clas in enumerate(data):
-        labeled_data[clas["id"]] = numpy.eye(2**classification)[cluster_labels[i]]
+    label_mapping = {old_label: new_label for new_label, old_label in enumerate(sorted_indices)}
+    new_labels = numpy.array([label_mapping[int(label)] for label in cluster_labels])
 
-    plot_label_histograms(all_execution_times, cluster_labels)
+    for i, clas in enumerate(data):
+        labeled_data[clas["id"]] = numpy.eye(2**classification)[new_labels[i]]
+
+    plot_label_histograms(all_execution_times, new_labels)
 
     print("Classes: ", classes)
     # print("Number of classes: ", len(classes))
     # print("Number of labeled data: ", len(labeled_data))
     # print("Data: ", labeled_data)
-    return labeled_data, classes, cluster_centers
+    return labeled_data, classes, sorted_centers
 
 
 def create_labeled_test_validation_classes(data, classes, workload):
