@@ -2,6 +2,8 @@ import pickle
 from antlr4 import *
 import json
 import os
+import jax
+jax.config.update("jax_enable_x64", True)
 from discopy.grammar.pregroup import Ty, Functor
 # from discopy.utils import dumps, loads
 from circuit_preparation.diagrams.pregroupFunctorMappings import count_boxes, object_mapping, arrow_mapping

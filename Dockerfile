@@ -80,14 +80,14 @@ RUN /etc/init.d/postgresql start \
 
 # Install packages ---------------------------------------------------------------------------
 USER root
+
+RUN pip install types-pkg-resources==0.1.3 pytket==1.24.0
+RUN pip install jax==0.4.24 jaxlib==0.4.24+cuda12.cudnn89 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+RUN pip install -U nvidia-cudnn-cu12==8.9.2.26
+
 RUN pip install antlr4-tools==0.2 antlr4-python3-runtime==4.11.1 scikit-learn==1.3.2 discopy==1.1.4 \
     optax==0.1.9 lambeq==0.3.3 matplotlib==3.7.3 noisyopt==0.2.2 numpy==1.26.4 PennyLane==0.34.0 \
     psycopg2_binary==2.9.9 sympy==1.12 seaborn==0.13.2 chex==0.1.85
-
-# torch >=1.12.1
-
-RUN pip install jax==0.4.24 jaxlib==0.4.24+cuda12.cudnn89 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-RUN pip install -U nvidia-cudnn-cu12==8.9.2.26
 
 #RUN pip install -U "jax[cuda12]"
 
