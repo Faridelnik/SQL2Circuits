@@ -155,7 +155,8 @@ def predict_execution_time(query):
 
     num_classes = 4
 
-    #script_dir = os.path.dirname(os.path.abspath(__file__))
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
+    # root_directory = script_dir + "/training/results"
     root_directory = "/qc4db/SQL2Circuits/sql2circuits/training/results"
     keywords = ["F1Data", str(num_classes)+"_classes"]
     
@@ -167,22 +168,23 @@ def predict_execution_time(query):
     # else:
     #     print("No directories found matching the criteria.")
 
-    directory_with_results = matching_directories[0]
-    pkl_files = find_pkl_files(directory_with_results)
+    directory_with_results = matching_directories[-1]
+    #pkl_files = find_pkl_files(directory_with_results)
 
-    if pkl_files:
-        pkl_files.sort()  # Sorting files alphabetically
-        last_pkl_file = pkl_files[-1]  # Selecting the last file
-        #print("Last .pkl file found:", last_pkl_file)
-    else:
-        print("No .pkl files found in the directory.")
-
+    # if pkl_files:
+    #     pkl_files.sort()  # Sorting files alphabetically
+    #     last_pkl_file = pkl_files[-1]  # Selecting the last file
+    #     #print("Last .pkl file found:", last_pkl_file)
+    # else:
+    #     print("No .pkl files found in the directory.")
+    
+    last_pkl_file = directory_with_results + "/700_optax_results_.pkl"
     file_with_optimized_params = last_pkl_file
     with open(file_with_optimized_params, 'rb') as f:
         optimized_params = pickle.load(f)
+    print("pkl file: ", last_pkl_file)
 
     #query = "SELECT b2.constructorresultsid FROM constructorresults AS b2, drivers AS f6, circuits AS a1, status AS n14, results AS k11, sprintresults AS m13 WHERE b2.status = n14.status AND a1.url = f6.url AND m13.fastestlaptime = k11.fastestlaptime;"
-        
     #print("query received by python: ", query)
 
     prediction = perform_full_transformation(query, num_classes, optimized_params)
@@ -194,12 +196,10 @@ def predict_execution_time(query):
     # Extract the cluster centers
     cluster_centers_str = data.get('cluster centers', '')
     cluster_centers = [float(center.strip('[]')) for center in cluster_centers_str.split()]
-
     #print("Cluster Centers:", cluster_centers)
 
     max_index = np.argmax(prediction)
     estimated_runtime = cluster_centers[max_index]
-
     #print("Estimated runtime: ", estimated_runtime)
 
     return estimated_runtime
