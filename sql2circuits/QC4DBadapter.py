@@ -168,7 +168,7 @@ def predict_execution_time(query):
     # else:
     #     print("No directories found matching the criteria.")
 
-    directory_with_results = matching_directories[-1]
+    directory_with_results = matching_directories[0]
     #pkl_files = find_pkl_files(directory_with_results)
 
     # if pkl_files:
